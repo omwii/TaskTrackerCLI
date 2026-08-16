@@ -37,10 +37,7 @@ public class TaskService
         var task = new TaskItem(taskId, description, creationDate);
         _tasks.Add(task.Id, task);
 
-        var json = JsonSerializer.Serialize(task, _options);
-        if (!Directory.Exists("Tasks")) 
-            Directory.CreateDirectory("Tasks");
-        File.WriteAllText($"Tasks/task-{taskId}.json", json);
+        CreateTaskFile(task);
         
         return task;
     }
@@ -52,11 +49,7 @@ public class TaskService
             task.Description = description;
             task.UpdatedAt = DateTime.Now;
             
-            var json = JsonSerializer.Serialize(task, _options);
-            if (!Directory.Exists("Tasks"))
-                Directory.CreateDirectory("Tasks");
-
-            File.WriteAllText($"Tasks/task-{id}.json", json);
+            CreateTaskFile(task);
         }
         else
         {
@@ -77,10 +70,7 @@ public class TaskService
             task.Status = status;
             task.UpdatedAt = DateTime.Now;
             
-            var json = JsonSerializer.Serialize(task, _options);
-            if (!Directory.Exists("Tasks")) 
-                Directory.CreateDirectory("Tasks");
-            File.WriteAllText($"Tasks/task-{id}.json", json);
+            CreateTaskFile(task);
         }
         else
         {
@@ -89,4 +79,12 @@ public class TaskService
     }
     
     public TaskItem[] GetTasksByStatus(TaskStatus status) => _tasks.Values.Where(x => x.Status == status).ToArray();
+
+    private void CreateTaskFile(TaskItem task)
+    {
+        var json = JsonSerializer.Serialize(task, _options);
+        if (!Directory.Exists("Tasks")) 
+            Directory.CreateDirectory("Tasks");
+        File.WriteAllText($"Tasks/task-{task.Id}.json", json);
+    }
 }

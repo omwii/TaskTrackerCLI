@@ -39,10 +39,8 @@ public static class ValidateUtility
         if (args.Length != 3) 
             throw new ArgumentNullException(nameof(args), "Usage: task-tracker-cli update <id> <description>");
         
-        var isInt = int.TryParse(args[1], out _);
-        return isInt 
-            ? args 
-            : throw new ArgumentException($"Task id should be an integer.");
+        ValidateIdForInt(args[1]);
+        return args;
     }
 
     private static string[] ParseDeleteCommand(string[] args)
@@ -50,9 +48,14 @@ public static class ValidateUtility
         if (args.Length != 2)
             throw new ArgumentNullException(nameof(args), "Usage: task-tracker-cli delete <id>");
         
-        var isInt = int.TryParse(args[1], out _);
-        return isInt 
-            ? args 
-            : throw new ArgumentException("Task id should be an integer.");
+        ValidateIdForInt(args[1]);
+        return args;
+    }
+
+    private static void ValidateIdForInt(string id)
+    {
+        var isInt = int.TryParse(id, out _);
+        if (!isInt)
+            throw new ArgumentException($"Task id should be an integer.");
     }
 }
