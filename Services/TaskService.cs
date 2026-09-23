@@ -21,7 +21,7 @@ public class TaskService
         {
             var task = JsonSerializer.Deserialize<TaskItem>(File.ReadAllText(file));
             if (task != null)
-                _tasks.Add(task.Id, task);
+                _tasks.TryAdd(task.Id, task);
         }
     }
 
@@ -34,7 +34,7 @@ public class TaskService
              taskId = _tasks.Keys.Last() + 1;
         var creationDate = DateTime.Now;
         
-        var task = new TaskItem(taskId, description, creationDate);
+        var task = new TaskItem(taskId, description, TaskStatus.ToDo, creationDate);
         _tasks.Add(task.Id, task);
 
         CreateTaskFile(task);
@@ -44,6 +44,8 @@ public class TaskService
 
     public void UpdateTask(int id, string description)
     {
+        if (description == string.Empty) throw new ArgumentException("Description cannot be empty");
+        
         if (_tasks.TryGetValue(id, out var task))
         {
             task.Description = description;
