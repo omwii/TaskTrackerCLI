@@ -40,7 +40,10 @@ public static class ValidateUtility
             throw new ArgumentNullException(nameof(args), "Usage: task-tracker-cli update <id> <description>");
         
         ValidateIdForInt(args[1]);
-        return args;
+        
+        return args[2].Length > 32
+            ? throw new ArgumentException("Task description cannot exceed 32 characters.")
+            : args;
     }
 
     private static string[] ParseDeleteCommand(string[] args)
