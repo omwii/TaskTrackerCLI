@@ -2,6 +2,7 @@
 
 public enum TaskStatus
 {
+    Unknown,
     ToDo,
     InProgress,
     Completed
