@@ -23,7 +23,7 @@ A simple command-line application for managing personal tasks. This tool allows 
 1. Clone or download the project
 2. Navigate to the project directory:
    ```bash
-   cd task-tracker-cli
+   cd task-tracker
    ```
 3. Restore and build the project:
    ```bash
@@ -37,7 +37,7 @@ A simple command-line application for managing personal tasks. This tool allows 
 
 Alternatively, you can compile and run manually:
 ```bash
-dotnet task-tracker-cli.dll
+dotnet task-tracker.dll
 ```
 
 ## Usage
@@ -62,33 +62,33 @@ dotnet task-tracker-cli.dll
 
 ```bash
 # Add a new task
-./task-tracker-cli add Buy groceries
+./task-tracker add Buy groceries
 
 # List all tasks
-./task-tracker-cli list
+./task-tracker list
 
 # List only To Do tasks
-./task-tracker-cli list-to-do
+./task-tracker list-to-do
 
 # Mark a task as in progress
-./task-tracker-cli mark-in-progress 1
+./task-tracker mark-in-progress 1
 
 # Update a task description
-./task-tracker-cli update 1 "Buy groceries and cook dinner"
+./task-tracker update 1 "Buy groceries and cook dinner"
 
 # Complete a task
-./task-tracker-cli mark-completed 1
+./task-tracker mark-completed 1
 
 # Delete a task
-./task-tracker-cli delete 1
+./task-tracker delete 1
 ```
 
 ## Project Structure
 
 ```
-task-tracker-cli/
+TaskTrackerCLI/
 ├── Program.cs                  # Entry point, command routing
-├── task-tracker-cli.csproj     # Project file (.NET 10.0)
+├── TaskTrackerCLI.csproj     # Project file (.NET 10.0)
 ├── Models/
 │   ├── TaskItem.cs            # Task data model
 │   └── TaskStatus.cs          # Task status enum
